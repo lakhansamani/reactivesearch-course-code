@@ -1,5 +1,5 @@
 import React from "react";
-import { ReactiveBase, DataSearch } from "@appbaseio/reactivesearch";
+import { ReactiveBase, DataSearch, MultiList } from "@appbaseio/reactivesearch";
 import "./styles.css";
 
 export default function App() {
@@ -25,6 +25,14 @@ export default function App() {
             console.log("source", source);
           }}
         />
+        <div style={{ display: "flex", margin: "20px 15px" }}>
+          <div style={{ width: "30%" }}>
+            <MultiList
+              componentId="CategorySensor"
+              dataField="categories.keyword"
+            />
+          </div>
+        </div>
       </div>
     </ReactiveBase>
   );
