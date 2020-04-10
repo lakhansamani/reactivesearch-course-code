@@ -1,6 +1,14 @@
 import React from "react";
-import { ReactiveBase, DataSearch, MultiList } from "@appbaseio/reactivesearch";
+import {
+  ReactiveBase,
+  DataSearch,
+  MultiList,
+  ReactiveList,
+  ResultList
+} from "@appbaseio/reactivesearch";
 import "./styles.css";
+
+const { ResultListWrapper } = ReactiveList;
 
 export default function App() {
   return (
@@ -31,6 +39,35 @@ export default function App() {
               componentId="CategorySensor"
               dataField="categories.keyword"
             />
+          </div>
+          <div style={{ width: "70%" }}>
+            <ReactiveList
+              react={{
+                and: ["CategorySensor", "SearchSensor"]
+              }}
+              componentId="SearchResult"
+            >
+              {({ data, error, loading }) => (
+                <ResultListWrapper>
+                  {data.map(item => (
+                    <ResultList key={item._id}>
+                      <ResultList.Image src="https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60" />
+                      <ResultList.Content>
+                        <ResultList.Title
+                          dangerouslySetInnerHTML={{
+                            __html: item.name
+                          }}
+                        />
+                        <p>{item.address}</p>
+                        <p>
+                          {item.city}, {item.state}
+                        </p>
+                      </ResultList.Content>
+                    </ResultList>
+                  ))}
+                </ResultListWrapper>
+              )}
+            </ReactiveList>
           </div>
         </div>
       </div>
