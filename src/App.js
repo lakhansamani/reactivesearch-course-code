@@ -1,5 +1,5 @@
 import React from "react";
-import { ReactiveBase } from "@appbaseio/reactivesearch";
+import { ReactiveBase, DataSearch } from "@appbaseio/reactivesearch";
 import "./styles.css";
 
 export default function App() {
@@ -9,8 +9,22 @@ export default function App() {
       url="https://xe6N9nDRV:51ea7a8a-6354-4b5f-83e1-12dce3b7ec47@arc-cluster-appbase-demo-ps1pgt.searchbase.io"
     >
       <div className="App">
-        <h1>Hello from ReactiveSearch</h1>
-        <h2>Start editing to see some magic happen!</h2>
+        <DataSearch
+          componentId="SearchSensor"
+          dataField={[
+            "name",
+            "name.search",
+            "name.autosuggest",
+            "city",
+            "city.search",
+            "city.autosuggest"
+          ]}
+          fieldWeights={[3, 1, 1, 2, 1, 1]}
+          onValueSelected={(value, cause, source) => {
+            console.log("value", value);
+            console.log("source", source);
+          }}
+        />
       </div>
     </ReactiveBase>
   );
